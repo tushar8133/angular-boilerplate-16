@@ -13,6 +13,7 @@ export const app = createActionGroup({
         'Alert': props<{ payload: Alert }>(),
         'Display': props<{ payload: object }>(),
         'Routes': props<{ payload: object }>(),
+        'Loading': props<{ payload: boolean }>(),
     }
 });
 

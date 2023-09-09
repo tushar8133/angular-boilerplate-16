@@ -7,6 +7,7 @@ export const app = {
     alert: createSelector(appFeatureSelector, (response) => response.alert),
     display: createSelector(appFeatureSelector, (response) => response.display),
     routes: createSelector(appFeatureSelector, (response) => response.routes),
+    loading: createSelector(appFeatureSelector, (response) => response.loading),
 }
 
 /* USER */

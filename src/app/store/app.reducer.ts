@@ -8,6 +8,7 @@ export const app = createReducer(
     on(Actions.app.alert, (state, { payload }) => ({ ...state, alert: { ...payload } })),
     on(Actions.app.display, (state, { payload }) => ({ ...state, display: { ...payload } })),
     on(Actions.app.routes, (state, payload ) => ({ ...state, routes: payload })),
+    on(Actions.app.loading, (state, payload ) => ({ ...state, loading: payload })),
 )
 
 /* USER */
