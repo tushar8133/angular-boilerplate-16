@@ -1,1 +1,10 @@
-<p>register works!</p>
+<form [formGroup]="form" (ngSubmit)="submit()">
+    <fieldset>
+        <legend>Register</legend>
+        <input type="text" formControlName="firstName" placeholder="First Name" />
+        <input type="text" formControlName="lastName" placeholder="Last Name" />
+        <input type="text" formControlName="userName" placeholder="User Name" />
+        <input type="password" formControlName="password" placeholder="Password" />
+        <p><button>Register</button></p>
+    </fieldset>
+</form>

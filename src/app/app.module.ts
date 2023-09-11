@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import * as State from './store';
@@ -19,7 +18,7 @@ import { NavigationComponent } from './core/components/navigation/navigation.com
     NavigationComponent,
   ],
   imports: [
-  BrowserModule,
+    BrowserModule,
     AppRoutingModule,
     StoreModule.forRoot(State.StoreReducer,  {
       initialState: State.localStorageState,
