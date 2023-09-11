@@ -6,13 +6,20 @@ import { AppComponent } from './app.component';
 import * as State from './store';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools'
+import { AppService } from './app.service';
+import { HeaderComponent } from './core/components/header/header.component';
+import { FooterComponent } from './core/components/footer/footer.component';
+import { NavigationComponent } from './core/components/navigation/navigation.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    HeaderComponent,
+    FooterComponent,
+    NavigationComponent,
   ],
   imports: [
-    BrowserModule,
+  BrowserModule,
     AppRoutingModule,
     StoreModule.forRoot(State.StoreReducer,  {
       initialState: State.localStorageState,
@@ -26,7 +33,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools'
     }),
     StoreDevtoolsModule.instrument()
   ],
-  providers: [],
+  providers: [AppService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

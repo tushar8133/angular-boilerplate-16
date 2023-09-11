@@ -4,8 +4,8 @@ import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { LoaderComponent } from './components/loader/loader.component';
-import { UnavailableComponent } from './components/unavailable/unavailable.component';
 import { ToastComponent } from './components/toast/toast.component';
+import { PagenotfoundComponent } from './components/pagenotfound/pagenotfound.component';
 
 @NgModule({
   declarations: [
@@ -13,8 +13,8 @@ import { ToastComponent } from './components/toast/toast.component';
     FooterComponent,
     NavigationComponent,
     LoaderComponent,
-    UnavailableComponent,
-    ToastComponent
+    ToastComponent,
+    PagenotfoundComponent
   ],
   imports: [
     CommonModule

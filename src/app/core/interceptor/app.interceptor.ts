@@ -35,9 +35,12 @@ export class AppInterceptor implements HttpInterceptor {
      */
     request = request.clone({
       setHeaders: {
-        'X-Something': '1000'
+        'Cache-Control': 'no-cache,no-store , max-age=0',
+        'X-Content-Type-Options': 'nosniff',
+        'X-Xss-Protection': '1; mode=block',
+        'X-RateLimit-Limit': '1000',
       },
-      body: this.cloneBody(request.body)
+      body: this.cloneRequest(request.body)
     })
 
     /**
@@ -63,7 +66,7 @@ export class AppInterceptor implements HttpInterceptor {
       map((event: HttpEvent<any>) => {
         if (event instanceof HttpResponse) {
           event = event.clone({
-            body: this.cloneRequest(event.body)
+            body: this.cloneResponse(event.body)
           })
         };
         return event;
@@ -82,11 +85,74 @@ export class AppInterceptor implements HttpInterceptor {
     return response;
   }
 
-  cloneBody(payload: any) {
-    return payload;
+  private sanitizePayload(str) {
+    if (typeof str !== 'string') {
+      return str;
+    }
+    let newstr = '';
+    str.split('').forEach((char) => {
+      newstr = newstr.concat(this.charMap[char] ?? char);
+      // newstr = newstr.concat((/[^a-zA-Z0-9 ]/.test(char)) ? `&#${char.charCodeAt(0)};` : char);
+    });
+    return newstr;
   }
 
-  cloneRequest(payload: any) {
-    return payload;
+  private sanitizeResponse(str) {
+    if (typeof str !== 'string') {
+      return str;
+    }
+    const dummyElem = document.createElement('textarea');
+    dummyElem.innerHTML = str;
+    return dummyElem.value;
+  }
+
+  private cloneRequest(data) {
+    if (
+      data === null ||
+      data === undefined ||
+      typeof data !== 'object' ||
+      Object.keys(data).length === 0
+    ) {
+      return data;
+    }
+    if (data instanceof Array) {
+      let cloneArr = new Array();
+      data.forEach((item, i) => {
+        let arr = this.sanitizePayload(item);
+        cloneArr[i] = this.cloneRequest(arr);
+      });
+      return cloneArr;
+    }
+    let cloneObj = {};
+    for (let i in data) {
+      let obj = this.sanitizePayload(data[i]);
+      cloneObj[i] = this.cloneRequest(obj);
+    }
+    return cloneObj;
+  }
+
+  private cloneResponse(data) {
+    if (
+      data === null ||
+      data === undefined ||
+      typeof data !== 'object' ||
+      Object.keys(data).length === 0
+    ) {
+      return data;
+    }
+    if (data instanceof Array) {
+      let cloneArr = new Array();
+      data.forEach((item, i) => {
+        let arr = this.sanitizeResponse(item);
+        cloneArr[i] = this.cloneResponse(arr);
+      });
+      return cloneArr;
+    }
+    let cloneObj = {};
+    for (let i in data) {
+      let obj = this.sanitizeResponse(data[i]);
+      cloneObj[i] = this.cloneResponse(obj);
+    }
+    return cloneObj;
   }
 }
