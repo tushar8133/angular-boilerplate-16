@@ -6,20 +6,16 @@ import * as State from './store';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools'
 import { AppService } from './app.service';
-import { HeaderComponent } from './core/components/header/header.component';
-import { FooterComponent } from './core/components/footer/footer.component';
-import { NavigationComponent } from './core/components/navigation/navigation.component';
+import { CoreModule } from './core/core.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent,
-    FooterComponent,
-    NavigationComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    CoreModule,
     StoreModule.forRoot(State.StoreReducer,  {
       initialState: State.localStorageState,
       metaReducers: State.metaReducers,

@@ -18,6 +18,14 @@ import { PagenotfoundComponent } from './components/pagenotfound/pagenotfound.co
   ],
   imports: [
     CommonModule
+  ],
+  exports: [
+    HeaderComponent,
+    FooterComponent,
+    NavigationComponent,
+    LoaderComponent,
+    ToastComponent,
+    PagenotfoundComponent
   ]
 })
 export class CoreModule { }
